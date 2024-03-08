@@ -1592,20 +1592,20 @@ def format_calc_line(line: CalcLine, **config_options) -> CalcLine:
 
     equals_signs = [idx for idx, char in enumerate(latex_code) if char == "="]
     second_equals = equals_signs[1]  # Change to 1 for second equals
-    latex_code = latex_code.replace("=", "&=")  # Align with ampersands for '\align'
+    latex_code = "&" + latex_code  # Align with ampersands for '\align'
     comment_space = ""
     comment = ""
     if line.comment:
         comment_space = "\\;"
         comment = format_strings(line.comment, comment=True)
-    line.latex = f"{latex_code[0:second_equals + 1]} {latex_code[second_equals + 2:]} {comment_space} {comment}\n"
+    line.latex = f"{latex_code[0:second_equals + 1]} {latex_code[second_equals + 1:]} {comment_space} {comment}\n"
     return line
 
 
 @format_lines.register(NumericCalcLine)
 def format_calc_line(line: NumericCalcLine, **config_options) -> NumericCalcLine:
     latex_code = line.latex
-    latex_code = latex_code.replace("=", "&=")  # Align with ampersands for '\align'
+    latex_code = "&" + latex_code  # Align with ampersands for '\align'
     comment_space = ""
     comment = ""
     if line.comment:
@@ -1685,7 +1685,7 @@ def format_param_line(line: ParameterLine, **config_options) -> ParameterLine:
 
 @format_lines.register(SymbolicLine)
 def format_symbolic_line(line: SymbolicLine, **config_options) -> SymbolicLine:
-    replaced = line.latex.replace("=", "&=")
+    replaced = "&" + line.latex
     comment_space = "\\;"
     comment = format_strings(line.comment, comment=True)
     line.latex = f"{replaced} {comment_space} {comment}\n"
