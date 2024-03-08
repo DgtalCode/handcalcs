@@ -3020,7 +3020,7 @@ def test_for_function_name(d: deque) -> bool:
         and (isinstance(d[0], str) and re.match(r"^[A-Za-z0-9_]+$", d[0]))
         and (
             isinstance(d[1], str)
-            and (re.match(r"^[A-Za-z0-9_]+$", d[1]) or is_number(d[1]))
+            and (re.match(r"^[A-Za-zА-Яа-я0-9_]+$", d[1]) or is_number(d[1]))
             or d[1] == "\\left("
             or d[-1] == "\\right)"
         )
