@@ -1596,7 +1596,7 @@ def format_calc_line(line: CalcLine, **config_options) -> CalcLine:
     comment_space = ""
     comment = ""
     if line.comment:
-        comment_space = "\\;"
+        comment_space = ""
         comment = format_strings(line.comment, comment=True)
     line.latex = f"{latex_code[0:second_equals + 1]} {latex_code[second_equals + 1:]} {comment_space} {comment}\n"
     return line
@@ -1609,7 +1609,7 @@ def format_calc_line(line: NumericCalcLine, **config_options) -> NumericCalcLine
     comment_space = ""
     comment = ""
     if line.comment:
-        comment_space = "\\;"
+        comment_space = ""
         comment = format_strings(line.comment, comment=True)
     line.latex = f"{latex_code} {comment_space} {comment}\n"
     return line
@@ -1627,7 +1627,7 @@ def format_conditional_line(line: ConditionalLine, **config_options) -> Conditio
         comment_space = ""
         comment = ""
         if line.comment:
-            comment_space = "\\;"
+            comment_space = ""
             comment = format_strings(line.comment, comment=True)
 
         line_break = f"{config_options['line_break']}\n"
@@ -1662,7 +1662,7 @@ def format_long_calc_line(line: LongCalcLine, **config_options) -> LongCalcLine:
     comment_space = ""
     comment = ""
     if line.comment:
-        comment_space = "\\;"
+        comment_space = ""
         comment = format_strings(line.comment, comment=True)
     line.latex = f"{long_latex} {comment_space} {comment}{line_break}"
     return line
@@ -1670,7 +1670,7 @@ def format_long_calc_line(line: LongCalcLine, **config_options) -> LongCalcLine:
 
 @format_lines.register(ParameterLine)
 def format_param_line(line: ParameterLine, **config_options) -> ParameterLine:
-    comment_space = "\\;"
+    comment_space = ""
     line_break = "\n"
     if "=" in line.latex:
         replaced = line.latex.replace("=", "&=")
@@ -1686,7 +1686,7 @@ def format_param_line(line: ParameterLine, **config_options) -> ParameterLine:
 @format_lines.register(SymbolicLine)
 def format_symbolic_line(line: SymbolicLine, **config_options) -> SymbolicLine:
     replaced = "&" + line.latex
-    comment_space = "\\;"
+    comment_space = ""
     comment = format_strings(line.comment, comment=True)
     line.latex = f"{replaced} {comment_space} {comment}\n"
     return line
@@ -1948,9 +1948,9 @@ def format_strings(string: str, comment: bool, **config_options) -> deque:
     l_par = ""
     r_par = ""
     if comment:
-        l_par = "("
-        r_par = ")"
-        text_env = "\\;\\textrm{"
+        l_par = ", "
+        r_par = ""
+        text_env = "\\textrm{"
         end_env = "}"
     else:
         l_par = ""
