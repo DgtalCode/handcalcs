@@ -1673,7 +1673,7 @@ def format_param_line(line: ParameterLine, **config_options) -> ParameterLine:
     comment_space = ""
     line_break = "\n"
     if "=" in line.latex:
-        replaced = line.latex.replace("=", "&=")
+        replaced = '&' + line.latex
         comment = format_strings(line.comment, comment=True)
         line.latex = f"{replaced} {comment_space} {comment}{line_break}"
     else:  # To handle sympy symbols displayed alone
