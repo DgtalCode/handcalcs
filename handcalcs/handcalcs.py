@@ -2040,7 +2040,8 @@ def swap_calculation(calculation: deque, calc_results: dict, **config_options) -
     """Returns the python code elements in the deque converted into
     latex code elements in the deque"""
     symbolic_portion = swap_symbolic_calcs(calculation, calc_results, **config_options)
-    calc_drop_decl = deque(list(calculation)[1:])  # Drop the variable declaration
+    temp = [i for i, x in enumerate(calculation) if x == '=']
+    calc_drop_decl = deque(list(calculation)[temp[-1]:])  # Drop the variable declaration
     numeric_portion = swap_numeric_calcs(calc_drop_decl, calc_results, **config_options)
     return (symbolic_portion, numeric_portion)
 
