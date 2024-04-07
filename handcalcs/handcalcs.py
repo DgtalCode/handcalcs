@@ -1753,9 +1753,7 @@ def test_for_parameter_line(line: str) -> bool:
     _, right_side = line.split("=", 1)
     right_side = right_side.replace(" ", "")
 
-    if (right_side.find("(") == 0) and (
-        right_side.find(")") == len(right_side) - 1
-    ):  # Blocked by parentheses
+    if (right_side[0] == '(') and (right_side[-1] == ')'):  # Blocked by parentheses
         return True
 
     try:
